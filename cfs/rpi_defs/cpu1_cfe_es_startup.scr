@@ -4,8 +4,8 @@ CFE_APP, /cf/kit_to.so,       KIT_TO_AppMain,      KIT_TO,        40,   32768, 0
 CFE_APP, /cf/kit_ci.so,       KIT_CI_AppMain,      KIT_CI,        40,   16384, 0x0, 0;
 CFE_APP, /cf/kit_sch.so,      KIT_SCH_AppMain,     KIT_SCH,       10,   32768, 0x0, 0;
 CFE_APP, /cf/gpio_demo.so,    GPIO_DEMO_AppMain,   GPIO_DEMO,     70,   16384, 0x0, 0;
-CFE_APP, /cf/filemgr.so,      FILEMGR_AppMain,     FILEMGR,       70,   16384, 0x0, 0;
 !!!
+CFE_APP, /cf/filemgr.so,      FILEMGR_AppMain,     FILEMGR,       70,   16384, 0x0, 0;
 CFE_APP, /cf/demo.so,         gpio_loop,           GPIO,          70,   16384, 0x0, 0;
 CFE_APP, /cf/tftp.so,         TFTP_AppMain,        TFTP,          70,   16384, 0x0, 0;
 !

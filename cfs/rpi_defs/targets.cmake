@@ -101,8 +101,8 @@ SET(FT_INSTALL_SUBDIR "host/functional-test")
 SET(MISSION_CPUNAMES cpu1)
 
 SET(cpu1_PROCESSORID 1)
-SET(cpu1_APPLIST osk_c_fw mipea kit_ci kit_to kit_sch demo filemgr gpio_demo)
-# tftp
+SET(cpu1_APPLIST osk_c_fw mipea kit_ci kit_to kit_sch gpio_demo)
+# filemgr, tftp
 
 SET(cpu1_FILELIST cfe_es_startup.scr osk_to_pkt_tbl.json osk_sch_msgtbl.json osk_sch_schtbl.json filemgr_ini.json gpio_demo_ini.json)
 
