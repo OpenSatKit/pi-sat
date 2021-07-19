@@ -1,2 +1,6 @@
-# PiSat
-Provides a cFS distribution that can be run on a Raspberry Pi. It also contains Raspbean conifguration instructions and python tools that allow the cFS to communicate with the OSK's COSMOS platform.
+# Pi-Sat
+Provides a cFS distribution that can be run on a Raspberry Pi. It includes a gpio_demo app that blinks an LED connected to the Pi’s GPIO.
+Refer to OpenSatKit's [Pi-Sat Quick Start Guide](https://github.com/OpenSatKit/OpenSatKit/blob/master/cosmos/config/targets/PISAT/docs/Pi-Sat-Quick-Start.pdf) for more details.
+
+OpenSatKit's v3.2 will include a COSMOS-to-Pi interface that allows the GPIO demo app to be run from COSMOS over a WiFi connection to the Pi.
+
