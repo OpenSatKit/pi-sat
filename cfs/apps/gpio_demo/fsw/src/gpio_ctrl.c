@@ -145,11 +145,11 @@ bool GPIO_CTRL_ChildTask(CHILDMGR_Class* ChildMgr)
    if (GpioCtrl->IsMapped) {
       
       gpio_set(GpioCtrl->OutPin);
-      CFE_EVS_SendEvent (GPIO_CTRL_CHILD_TASK_EID, CFE_EVS_EventType_DEBUG, "GPIO pin %d on for %ul milliseconds", GpioCtrl->OutPin, GpioCtrl->OnTime);
+      CFE_EVS_SendEvent (GPIO_CTRL_CHILD_TASK_EID, CFE_EVS_EventType_INFORMATION, "GPIO pin %d on for %ul milliseconds", GpioCtrl->OutPin, GpioCtrl->OnTime);
       OS_TaskDelay(GpioCtrl->OnTime);
     
       gpio_clr(GpioCtrl->OutPin);
-      CFE_EVS_SendEvent (GPIO_CTRL_CHILD_TASK_EID, CFE_EVS_EventType_DEBUG, "GPIO pin %d off for %ul milliseconds", GpioCtrl->OutPin, GpioCtrl->OffTime);
+      CFE_EVS_SendEvent (GPIO_CTRL_CHILD_TASK_EID, CFE_EVS_EventType_INFORMATION, "GPIO pin %d off for %ul milliseconds", GpioCtrl->OutPin, GpioCtrl->OffTime);
       OS_TaskDelay(GpioCtrl->OffTime);
    
    } /* End if mapped */
