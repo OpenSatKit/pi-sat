@@ -43,7 +43,7 @@
 #define UPLINK_SOCKET_CREATED_EID          (UPLINK_BASE_EID +  0)
 #define UPLINK_SOCKET_CREATE_ERR_EID       (UPLINK_BASE_EID +  1)
 #define UPLINK_SOCKET_BIND_ERR_EID         (UPLINK_BASE_EID +  2)
-#define UPLINK_RECV_LEN_ERR_EID            (UPLINK_BASE_EID +  3)
+#define UPLINK_RECV_ERR_EID                (UPLINK_BASE_EID +  3)
 #define UPLINK_SEND_SB_MSG_ERR_EID         (UPLINK_BASE_EID +  4)
 #define UPLINK_CFG_MSG_TUNNEL_ENA_EID      (UPLINK_BASE_EID +  5)
 #define UPLINK_CFG_MSG_TUNNEL_DIS_EID      (UPLINK_BASE_EID +  6)
@@ -123,7 +123,7 @@ typedef struct {
    uint32   RecvMsgErrCnt;
    uint32   RecvMsgIdx;
    UPLINK_SocketRecvCmdMsg RecvMsg[UPLINK_RECV_BUFF_CNT];
-   CFE_SB_Buffer_t *NextIngestBufPtr;  // CI_LAB proto
+   CFE_SB_Buffer_t *RecvSbBufPtr;  // CI_LAB proto
 
    UPLINK_MsgTunnel MsgTunnel;
 

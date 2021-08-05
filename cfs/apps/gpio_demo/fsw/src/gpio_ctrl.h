@@ -89,6 +89,7 @@ typedef struct {
    */
 
    bool    IsMapped;
+   bool    LedOn;
    uint8   OutPin;
    uint32  OnTime;    /* Time in Milliseconds */
    uint32  OffTime;   /* Time in Milliseconds */ 

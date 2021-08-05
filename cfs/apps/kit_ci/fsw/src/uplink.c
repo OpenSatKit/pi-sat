@@ -114,6 +114,7 @@ void UPLINK_Constructor(UPLINK_Class*  UplinkPtr, uint16 Port)
    Uplink->RecvMsgIdx    = 0;
    Uplink->RecvMsgCnt    = 0;
    Uplink->RecvMsgErrCnt = 0;
+   Uplink->RecvSbBufPtr  = NULL;
    */
    memset(Uplink,0,sizeof(UPLINK_Class));
 
@@ -172,30 +173,56 @@ int UPLINK_Read(uint16 MaxMsgRead)
 
    int  i = 0;
    int  Status;
+   uint8* MsgBytes;
    UPLINK_SocketRecvCmdMsg *RecvCmdMsg; 
+   
     
    if (Uplink->Connected == false) return i;
 
+   
    for (i = 0; i < MaxMsgRead; i++) {
 
       RecvCmdMsg = &(Uplink->RecvMsg[Uplink->RecvMsgIdx]);
       
+      /*
+      if (Uplink->RecvSbBufPtr == NULL) {
+      
+         Uplink->RecvSbBufPtr = CFE_SB_AllocateMessageBuffer(UPLINK_RECV_BUFF_LEN);
+      
+         if (Uplink->RecvSbBufPtr == NULL) {
+         
+            CFE_EVS_SendEvent(UPLINK_RECV_ERR_EID,CFE_EVS_EventType_ERROR,
+                              "Failed to allocate SB buffer of length %d", UPLINK_RECV_BUFF_LEN);
+            
+            break;
+         }
+      }   
+      */
       Status = OS_SocketRecvFrom(Uplink->SocketId, RecvCmdMsg, sizeof(UPLINK_SocketRecvCmdMsg),
                                  &(Uplink->SocketAddress), OS_CHECK);
+      
+      
+      //~Status = OS_SocketRecvFrom(Uplink->SocketId, Uplink->RecvSbBufPtr, UPLINK_RECV_BUFF_LEN,
+      //~                           &(Uplink->SocketAddress), OS_CHECK);
       
       Uplink->RecvMsgIdx++;
       if (Uplink->RecvMsgIdx >= UPLINK_RECV_BUFF_CNT) Uplink->RecvMsgIdx = 0;
                                  
       if (Status >= (int32)sizeof(CFE_MSG_CommandHeader_t) && Status <= ((int32)UPLINK_RECV_BUFF_LEN)) {
          
-         CFE_EVS_SendEvent(UPLINK_DEBUG_EID, CFE_EVS_EventType_DEBUG, "UPLINK: Read %d bytes from socket",Status);
+         CFE_EVS_SendEvent(UPLINK_DEBUG_EID, CFE_EVS_EventType_INFORMATION, "UPLINK: Read %d bytes from socket",Status);
          Uplink->RecvMsgCnt++;
          if (Uplink->MsgTunnel.Enabled) ProcessMsgTunnelMap();
 
-         Status = CFE_SB_TransmitMsg( (void *)&(RecvCmdMsg->CmdHeader.Msg), false); //TODO - cfe7.0 (CFE_SB_Buffer_t*)
+         Status = CFE_SB_TransmitMsg( (void *)&(RecvCmdMsg->CmdHeader.Msg), false); //~TODO - cfe7.0 (CFE_SB_Buffer_t*)
+         //~Status = CFE_SB_TransmitBuffer( Uplink->RecvSbBufPtr, false); 
 
-
-         if (Status != CFE_SUCCESS) {
+         if (Status == CFE_SUCCESS) {
+           
+            Uplink->RecvSbBufPtr = NULL;
+         
+         }   
+         else {
 
             CFE_EVS_SendEvent(UPLINK_SEND_SB_MSG_ERR_EID, CFE_EVS_EventType_ERROR,
                              "UPLINK CFE_SB_TransmitBuffer() failed, Status = 0x%X", (int)Status);
@@ -205,9 +232,14 @@ int UPLINK_Read(uint16 MaxMsgRead)
       else if (Status > 0) {
          
          Uplink->RecvMsgErrCnt++;
-         // TODO - cfe7.0 Format header
+         MsgBytes = Uplink->RecvSbBufPtr->Msg.Byte;
+         CFE_EVS_SendEvent(UPLINK_RECV_ERR_EID, CFE_EVS_EventType_ERROR,
+                           "UPLINK: Command dropped, Bad length %d. Bytes: 0x%02x%02x 0x%02x%02x ", (int)Status,
+                            MsgBytes[0], MsgBytes[1], MsgBytes[2], MsgBytes[3]);
+         
+         //~ TODO - cfe7.0 Format header
          /*
-         CFE_EVS_SendEvent(UPLINK_RECV_LEN_ERR_EID,CFE_EVS_EventType_ERROR,
+         CFE_EVS_SendEvent(UPLINK_RECV_ERR_EID,CFE_EVS_EventType_ERROR,
                            "UPLINK: Command dropped, Bad length %d. Header: 0x%02x%2x 0x%02x%2x 0x%02x%2x 0x%02x%2x", (int)Status,
                 		         Uplink->RecvBuff[0], Uplink->RecvBuff[1], Uplink->RecvBuff[2], Uplink->RecvBuff[3],
                               Uplink->RecvBuff[4], Uplink->RecvBuff[5], Uplink->RecvBuff[6], Uplink->RecvBuff[7]);

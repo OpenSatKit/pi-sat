@@ -72,6 +72,8 @@ typedef struct {
    
    uint8    CtrlIsMapped;
    uint8    CtrlOutPin;
+   uint8    CtrlLedOn;
+   uint8    CtrlSpare;
    
    uint32   CtrlOnTime;
    uint32   CtrlOffTime;

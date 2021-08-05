@@ -141,7 +141,6 @@ bool GPIO_DEMO_ResetAppCmd(void* ObjDataPtr, const CFE_SB_Buffer_t* SbBufPtr)
 void GPIO_DEMO_SendHousekeepingPkt(void)
 {
    
-
    GpioDemo.HkPkt.ValidCmdCnt   = GpioDemo.CmdMgr.ValidCmdCnt;
    GpioDemo.HkPkt.InvalidCmdCnt = GpioDemo.CmdMgr.InvalidCmdCnt;
 
@@ -152,6 +151,9 @@ void GPIO_DEMO_SendHousekeepingPkt(void)
    GpioDemo.HkPkt.CtrlIsMapped = GpioDemo.GpioCtrl.IsMapped;
    GpioDemo.HkPkt.CtrlOutPin   = GpioDemo.GpioCtrl.OutPin;
    
+   GpioDemo.HkPkt.CtrlLedOn    = GpioDemo.GpioCtrl.LedOn;
+   GpioDemo.HkPkt.CtrlSpare    = 5;
+         
    GpioDemo.HkPkt.CtrlOnTime   = GpioDemo.GpioCtrl.OnTime;
    GpioDemo.HkPkt.CtrlOffTime  = GpioDemo.GpioCtrl.OffTime;
    
@@ -250,7 +252,7 @@ static int32 ProcessCommands(void)
    CFE_ES_PerfLogEntry(GpioDemo.PerfId);
 
    if (SysStatus == CFE_SUCCESS) {
-      
+
       SysStatus = CFE_MSG_GetMsgId(&SbBufPtr->Msg, &MsgId);
    
       if (SysStatus == OS_SUCCESS) {

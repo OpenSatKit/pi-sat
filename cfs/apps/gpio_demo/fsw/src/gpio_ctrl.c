@@ -106,7 +106,7 @@ bool GPIO_CTRL_SetOnTimeCmd(void* DataObjPtr, const CFE_SB_Buffer_t* SbBufPtr)
    bool RetStatus = true;
   
    GpioCtrl->OnTime = Cmd->OnTime;
-   CFE_EVS_SendEvent (GPIO_CTRL_SET_ON_TIME_EID, CFE_EVS_EventType_INFORMATION, "GPIO on time set to %ul milliseconds", GpioCtrl->OnTime);
+   CFE_EVS_SendEvent (GPIO_CTRL_SET_ON_TIME_EID, CFE_EVS_EventType_INFORMATION, "GPIO on time set to %u milliseconds", GpioCtrl->OnTime);
   
    return RetStatus;   
    
@@ -128,7 +128,7 @@ bool GPIO_CTRL_SetOffTimeCmd(void* DataObjPtr, const CFE_SB_Buffer_t* SbBufPtr)
    bool RetStatus = true;
   
    GpioCtrl->OffTime = Cmd->OffTime;  
-   CFE_EVS_SendEvent (GPIO_CTRL_SET_OFF_TIME_EID, CFE_EVS_EventType_INFORMATION, "GPIO off time set to %ul milliseconds", GpioCtrl->OffTime);
+   CFE_EVS_SendEvent (GPIO_CTRL_SET_OFF_TIME_EID, CFE_EVS_EventType_INFORMATION, "GPIO off time set to %u milliseconds", GpioCtrl->OffTime);
   
    return RetStatus;   
    
@@ -145,11 +145,13 @@ bool GPIO_CTRL_ChildTask(CHILDMGR_Class* ChildMgr)
    if (GpioCtrl->IsMapped) {
       
       gpio_set(GpioCtrl->OutPin);
-      CFE_EVS_SendEvent (GPIO_CTRL_CHILD_TASK_EID, CFE_EVS_EventType_INFORMATION, "GPIO pin %d on for %ul milliseconds", GpioCtrl->OutPin, GpioCtrl->OnTime);
+      GpioCtrl->LedOn = true;
+      CFE_EVS_SendEvent (GPIO_CTRL_CHILD_TASK_EID, CFE_EVS_EventType_INFORMATION, "GPIO pin %d on for %u milliseconds", GpioCtrl->OutPin, GpioCtrl->OnTime);
       OS_TaskDelay(GpioCtrl->OnTime);
     
       gpio_clr(GpioCtrl->OutPin);
-      CFE_EVS_SendEvent (GPIO_CTRL_CHILD_TASK_EID, CFE_EVS_EventType_INFORMATION, "GPIO pin %d off for %ul milliseconds", GpioCtrl->OutPin, GpioCtrl->OffTime);
+      GpioCtrl->LedOn = false;
+      CFE_EVS_SendEvent (GPIO_CTRL_CHILD_TASK_EID, CFE_EVS_EventType_INFORMATION, "GPIO pin %d off for %u milliseconds", GpioCtrl->OutPin, GpioCtrl->OffTime);
       OS_TaskDelay(GpioCtrl->OffTime);
    
    } /* End if mapped */

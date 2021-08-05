@@ -4,7 +4,7 @@
                     "GPIO Pin is the GPIO definition and not the physical pin number"]
    "config": {
       
-      "APP_CFE_NAME": "SCSIM",
+      "APP_CFE_NAME": "GPIO_DEMO",
       "APP_PERF_ID":  128,
       
       "CHILD_NAME":       "GPIO_DEMO_CHILD",
@@ -15,9 +15,9 @@
       "CMD_PIPE_NAME":  "GPIO_DEMO_CMD",
       "CMD_PIPE_DEPTH": 10,
 
-      "CMD_MID"    : 8032,
-      "SEND_HK_MID": 6594,
-      "HK_TLM_MID" : 3936,
+      "CMD_MID"    : 6416,
+      "SEND_HK_MID": 6417,
+      "HK_TLM_MID" : 2320,
       
       "CTRL_OUT_PIN" :   18,
       "CTRL_ON_TIME" : 3000,

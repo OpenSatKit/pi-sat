@@ -224,11 +224,18 @@ static void ProcessCommands(void)
    int32             Status  = CFE_SEVERITY_ERROR;
    CFE_SB_Buffer_t*  SbBufPtr;
    CFE_SB_MsgId_t    MsgId   = CFE_SB_INVALID_MSG_ID;
-
+   uint8*            MsgBytes;
+   
    Status = CFE_SB_ReceiveBuffer(&SbBufPtr, KitCi.CmdPipe, CFE_SB_POLL);
 
    if (Status == CFE_SUCCESS) {
 
+      MsgBytes = SbBufPtr->Msg.Byte;
+      
+      CFE_EVS_SendEvent(UPLINK_RECV_ERR_EID, CFE_EVS_EventType_DEBUG,
+                        "CmdBytes: 0x%02x%02x 0x%02x%02x  0x%02x%02x 0x%02x%02x ", 
+                        MsgBytes[0], MsgBytes[1], MsgBytes[2], MsgBytes[3],
+                        MsgBytes[4], MsgBytes[5], MsgBytes[6], MsgBytes[7]);
       CFE_MSG_GetMsgId(&SbBufPtr->Msg, &MsgId);
 
       switch (CFE_SB_MsgIdToValue(MsgId)) {
