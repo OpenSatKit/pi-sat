@@ -4,3 +4,4 @@ Refer to OpenSatKit's [Pi-Sat Quick Start Guide](https://github.com/OpenSatKit/O
 
 OpenSatKit's v3.2 will include a COSMOS-to-Pi interface that allows the GPIO demo app to be run from COSMOS over a WiFi connection to the Pi.
 
+![](https://github.com/OpenSatKit/opensatkit.github.io/blob/master/img/osk-pisat-wifi-A.png)
