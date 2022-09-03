@@ -102,7 +102,7 @@ uint32_t dma_virt_to_phy(dma_phy_mem_blk *block, void *addr);
 void dma_alloc_phy_mem(dma_phy_mem_blk *block, unsigned int size);
 void dma_free_phy_mem(dma_phy_mem_blk *block);
 
-int _mbox_fd;
+extern int _mbox_fd;
 
 #ifdef  __cplusplus
 }

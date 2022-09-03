@@ -264,7 +264,7 @@ bool CHILDMGR_InvokeChildCmd(void* ObjDataPtr, const CFE_SB_Buffer_t*  SbBufPtr)
       }/* End if valid message length */
       else {
          
-         sprintf(EventErrStr, "Error dispatching commmand function %d. Command message length %d exceed max %d",
+         sprintf(EventErrStr, "Error dispatching commmand function %d. Command message length %lu exceed max %lu",
             FuncCode, MsgLen, sizeof(CHILDMGR_CmdQ_Entry));
       
       }

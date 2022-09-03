@@ -403,7 +403,7 @@ bool SCHEDULER_SendMsgEntryCmd(void* ObjDataPtr, const CFE_SB_Buffer_t* SbBufPtr
          CFE_MSG_ValidateChecksum(MsgPtr, &ValidChecksum);
          
          CFE_EVS_SendEvent(SCHEDULER_CMD_SUCCESS_EID, CFE_EVS_EventType_INFORMATION, 
-                           "Msg[%d]=Command(ApId,SeqCnt,Len,FuncCode,ValidChecksum)=>(0x%04X,%d,%d,%d,0x%02X)",
+                           "Msg[%d]=Command(ApId,SeqCnt,Len,FuncCode,ValidChecksum)=>(0x%04X,%d,%lu,%d,0x%02X)",
                            MsgIndex,ApId,SeqCnt,Size,FuncCode,ValidChecksum);
             
          DataBuf = &(Scheduler->MsgTbl.Entry[MsgIndex].Buffer[sizeof(CFE_MSG_CommandHeader_t)/2]);
@@ -416,7 +416,7 @@ bool SCHEDULER_SendMsgEntryCmd(void* ObjDataPtr, const CFE_SB_Buffer_t* SbBufPtr
          CFE_MSG_GetMsgTime(MsgPtr, &Time);
          
          CFE_EVS_SendEvent(SCHEDULER_CMD_SUCCESS_EID, CFE_EVS_EventType_INFORMATION, 
-                           "Msg[%d]=Telemetry(ApId,SeqCnt,Len,Seconds,Subsecs)=>(0x%04X,%d,%d,%d,%d)",
+                           "Msg[%d]=Telemetry(ApId,SeqCnt,Len,Seconds,Subsecs)=>(0x%04X,%d,%lu,%d,%d)",
                            MsgIndex,ApId,SeqCnt,Size,Time.Seconds,Time.Subseconds);
            
          DataBuf = &(Scheduler->MsgTbl.Entry[MsgIndex].Buffer[sizeof(CFE_MSG_TelemetryHeader_t)/2]);

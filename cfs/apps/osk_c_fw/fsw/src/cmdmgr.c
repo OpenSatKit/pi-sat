@@ -181,7 +181,7 @@ bool CMDMGR_DispatchFunc(CMDMGR_Class* CmdMgr, const CFE_SB_Buffer_t*  SbBufPtr)
                              ((uint8*)SbBufPtr)[0],((uint8*)SbBufPtr)[1],((uint8*)SbBufPtr)[2],((uint8*)SbBufPtr)[3]);
    if (DBG_CMDMGR) OS_printf("CMDMGR_DispatchFunc(): [4]=0x%X, [5]=0x%X, [6]=0x%X, [7]=0x%X\n",
                              ((uint8*)SbBufPtr)[4],((uint8*)SbBufPtr)[5],((uint8*)SbBufPtr)[6],((uint8*)SbBufPtr)[7]);
-   if (DBG_CMDMGR) OS_printf("CMDMGR_DispatchFunc(): FuncCode %d, DataLen %d\n", FuncCode,UserDataLen);
+   if (DBG_CMDMGR) OS_printf("CMDMGR_DispatchFunc(): FuncCode %d, DataLen %lu\n", FuncCode,UserDataLen);
 
    if (FuncCode < CMDMGR_CMD_FUNC_TOTAL) {
 
@@ -202,7 +202,7 @@ bool CMDMGR_DispatchFunc(CMDMGR_Class* CmdMgr, const CFE_SB_Buffer_t*  SbBufPtr)
       else {
 
          CFE_EVS_SendEvent (CMDMGR_DISPATCH_INVALID_LEN_ERR_EID, CFE_EVS_EventType_ERROR,
-                            "Invalid command user data length %d, expected %d",
+                            "Invalid command user data length %lu, expected %d",
                             UserDataLen, CmdMgr->Cmd[FuncCode].UserDataLen);
 
       }
