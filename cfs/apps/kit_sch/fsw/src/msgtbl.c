@@ -120,7 +120,7 @@ bool MSGTBL_LoadCmd(TBLMGR_Tbl *Tbl, uint8 LoadType, const char* Filename)
    int obj, msg;
    
    CFE_EVS_SendEvent(KIT_SCH_INIT_DEBUG_EID, KIT_SCH_INIT_EVS_TYPE,
-                     "MSGTBL_LoadCmd() Entry. sizeof(MsgTbl->Tbl) = %d\n",sizeof(MsgTbl->Tbl));
+                     "MSGTBL_LoadCmd() Entry. sizeof(MsgTbl->Tbl) = %lu\n",sizeof(MsgTbl->Tbl));
    
    /* 
    ** Reset status, object modified flags, and data. A non-zero BufLim
@@ -317,7 +317,7 @@ bool MSGTBL_DumpCmd(TBLMGR_Tbl *Tbl, uint8 DumpType, const char* Filename)
          if (DataWords > (uint8)(MSGTBL_MAX_MSG_WORDS)) {
             
             CFE_EVS_SendEvent(MSGTBL_DUMP_MSG_ERR_EID, CFE_EVS_EventType_ERROR,
-                              "Error creating dump file message entry %d. Message word length %d is greater than max data buffer %d",
+                              "Error creating dump file message entry %d. Message word length %d is greater than max data buffer %lu",
                               i, DataWords, PKTUTIL_PRI_HDR_WORDS);         
          }
          else {

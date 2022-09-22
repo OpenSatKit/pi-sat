@@ -122,7 +122,7 @@ bool SCHTBL_LoadCmd(TBLMGR_Tbl *Tbl, uint8 LoadType, const char* Filename)
 
    int entry;
    
-   CFE_EVS_SendEvent(KIT_SCH_INIT_DEBUG_EID, KIT_SCH_INIT_EVS_TYPE, "SCHTBL_LoadCmd() Entry. sizeof(SchTbl->Tbl) = %d\n",sizeof(SchTbl->Tbl));
+   CFE_EVS_SendEvent(KIT_SCH_INIT_DEBUG_EID, KIT_SCH_INIT_EVS_TYPE, "SCHTBL_LoadCmd() Entry. sizeof(SchTbl->Tbl) = %lu\n",sizeof(SchTbl->Tbl));
    
    /* 
    ** Reset status, object modified flags, and data. A valid

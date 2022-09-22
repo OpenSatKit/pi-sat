@@ -39,6 +39,8 @@ volatile struct dma_channel_register_map *DMAC14 = NULL;
 
 volatile struct dma_register_map *DMA = NULL;
 
+int _mbox_fd;
+
 int dma_map(void)
 {
     // open /dev/vcio which is used in mailbox

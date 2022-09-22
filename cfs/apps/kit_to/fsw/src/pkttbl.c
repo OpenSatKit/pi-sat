@@ -162,7 +162,7 @@ bool    PKTTBL_LoadCmd(TBLMGR_Tbl *Tbl, uint8 LoadType, const char* Filename)
 
    CFE_MSG_ApId_t ApId;
    
-   CFE_EVS_SendEvent(KIT_TO_INIT_DEBUG_EID, KIT_TO_INIT_EVS_TYPE, "PKTTBL_LoadCmd() Entry. sizeof(PktTbl->Tbl) = %d\n", sizeof(PktTbl->Tbl));
+   CFE_EVS_SendEvent(KIT_TO_INIT_DEBUG_EID, KIT_TO_INIT_EVS_TYPE, "PKTTBL_LoadCmd() Entry. sizeof(PktTbl->Tbl) = %lu\n", sizeof(PktTbl->Tbl));
    
    /* 
    ** Reset status, object modified flags, and data. A non-zero BufLim
